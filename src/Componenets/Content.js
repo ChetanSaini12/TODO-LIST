@@ -106,7 +106,7 @@ let allTask = [
 
 function Content() {
 
-  
+
   let x = 21;
   let handleSubmit = (event) => {
     event.preventDefault();
@@ -129,7 +129,7 @@ function Content() {
     setInputValue(event.target.value);
   };
 
-  const [value, setValue] = React.useState("");
+  // const [value, setValue] = React.useState("");
   const [inputValue, setInputValue] = React.useState("");
   const [items, setItems] = React.useState([]);
 
