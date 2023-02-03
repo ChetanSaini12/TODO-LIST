@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Task from "./Task";
+import './task.css'
 
 let allTask = [
   {
     id: 1,
     task: "Give dog a bath",
-    complete: true,
+    complete: false,
   },
   {
     id: 2,
     task: "Do laundry",
-    complete: true,
+    complete: false,
   },
   {
     id: 3,
@@ -20,7 +21,7 @@ let allTask = [
   {
     id: 4,
     task: "Feed cat",
-    complete: true,
+    complete: false,
   },
   {
     id: 5,
@@ -30,12 +31,12 @@ let allTask = [
   {
     id: 6,
     task: "Go to Store",
-    complete: true,
+    complete: false,
   },
   {
     id: 7,
     task: "Fill gas tank",
-    complete: true,
+    complete: false,
   },
   {
     id: 8,
@@ -45,7 +46,7 @@ let allTask = [
   {
     id: 9,
     task: "Rake leaves",
-    complete: true,
+    complete: false,
   },
   {
     id: 10,
@@ -55,12 +56,12 @@ let allTask = [
   {
     id: 11,
     task: "Take nap",
-    complete: true,
+    complete: false,
   },
   {
     id: 12,
     task: "Read book",
-    complete: true,
+    complete: false,
   },
   {
     id: 13,
@@ -85,7 +86,7 @@ let allTask = [
   {
     id: 17,
     task: "Feed cat",
-    complete: true,
+    complete: false,
   },
   {
     id: 18,
@@ -104,20 +105,26 @@ let allTask = [
   },
 ];
 
+let x = 21;
 function Content() {
 
 
-  let x = 21;
   let handleSubmit = (event) => {
     event.preventDefault();
+    
     setItems([...items, { text: inputValue }]);
     setInputValue("");
     console.log({ inputValue });
     console.log("hello");
+    if(inputValue == "")
+    {
+      return;
+      console.log(x);
+    }
     let tmp = {
       id: x,
       task: inputValue,
-      complete: true,
+      complete: false,
       
     };
     x= x+1;
@@ -129,14 +136,24 @@ function Content() {
     setInputValue(event.target.value);
   };
 
+  const [clear,setClear]=useState(false);
+  const clearArray = (event) => {
+    event.preventDefault();
+    while(allTask.length > 0) {
+      allTask.pop();
+  }
+    setClear(!clear);
+    console.log("clear huva h");
+  }
+
   // const [value, setValue] = React.useState("");
   const [inputValue, setInputValue] = React.useState("");
   const [items, setItems] = React.useState([]);
 
   return (
-    <div className=" bg-inherit fixed w-11/12 h-full my-20 mt-20 grid v-screen place-items-center">
-      <div className="w-9/12  rounded-2xl h-screen my-10 flex justify-center   mt-10  bg-gradient-to-br from-[#386D62] via-[#21444F] to-[#08172B] ">
-        <div className="form-control w-full scrollbar-hide ">
+    <div className=" bg-inherit fixed w-11/12 h-full my-20 mt-20 grid v-screen place-items-center" style={{marginTop:"3rem"}}>
+      <div className="w-9/12  rounded-2xl h-screen my-10 flex justify-center   mt-10  bg-gradient-to-br from-[#386D62] via-[#21444F] to-[#08172B] " style={{height:"28rem"}}>
+        <div className="form-control w-full scrollbar-hide scrollbarHide ">
           <label className="input-group place-content-center mt-5 mb-5 ">
             <input
               type="text"
@@ -148,7 +165,7 @@ function Content() {
             <span className="btn" onClick={handleSubmit}>
               Add
             </span>
-            <button className="btn ml-2 btn-outline btn-info">Clear All</button>
+            <button className="btn ml-2 btn-outline btn-info" onClick={clearArray} >Clear All</button>
           </label>
           <Task ary={allTask} />
         </div>
